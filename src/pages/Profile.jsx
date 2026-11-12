@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Profile.css";
 
 const API_URL = "http://localhost:5000/api/profile";
 
@@ -248,7 +247,7 @@ function Profile() {
   }
 
   if (loading) {
-    return <div className="profile-loading">Loading profile...</div>;
+    return <div className="grid min-h-screen place-items-center bg-slate-50 font-sans text-slate-600">Loading profile...</div>;
   }
 
   const completionFields = [
@@ -273,36 +272,36 @@ function Profile() {
   );
 
   return (
-    <div className="profile-page">
-      <header className="profile-topbar">
-        <Link to="/dashboard" className="profile-brand">
-          Career<span>OS</span>
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
+      <header className="flex h-[75px] items-center justify-between border-b border-slate-200 bg-white px-[6%]">
+        <Link to="/dashboard" className="text-[25px] font-extrabold text-slate-800 no-underline">
+          Career<span className="text-blue-600">OS</span>
         </Link>
 
-        <nav>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/profile" className="profile-nav-active">
+        <nav className="hidden items-center gap-[30px] sm:flex">
+          <Link to="/dashboard" className="text-sm font-semibold text-slate-500 no-underline transition hover:text-blue-600">Dashboard</Link>
+          <Link to="/profile" className="text-sm font-semibold text-blue-600 no-underline">
             My Profile
           </Link>
         </nav>
 
-        <Link to="/dashboard" className="back-dashboard">
+        <Link to="/dashboard" className="text-sm font-semibold text-blue-600 no-underline">
           ← Dashboard
         </Link>
       </header>
 
-      <main className="profile-container">
-        <div className="profile-page-heading">
+      <main className="mx-auto my-8 w-[92%] max-w-[1100px]">
+        <div className="mb-6 flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <div>
-            <p className="profile-eyebrow">ACCOUNT MANAGEMENT</p>
-            <h1>My Profile</h1>
-            <p>Manage your personal details and career information.</p>
+            <p className="text-[11px] font-bold tracking-[1.5px] text-blue-600">ACCOUNT MANAGEMENT</p>
+            <h1 className="my-2 text-3xl font-bold tracking-tight text-slate-800">My Profile</h1>
+            <p className="text-sm text-slate-500">Manage your personal details and career information.</p>
           </div>
 
           {!isEditing && (
             <button
               type="button"
-              className="profile-edit-btn"
+              className="cursor-pointer rounded-lg border-0 bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
               onClick={() => {
                 setIsEditing(true);
                 setMessage("");
@@ -314,13 +313,13 @@ function Profile() {
         </div>
 
         {message && (
-          <div className="profile-message" role="status">
+          <div className="mb-[18px] rounded-lg bg-blue-50 px-4 py-3 text-[13px] text-blue-800" role="status">
             {message}
           </div>
         )}
 
-        <section className="profile-hero">
-          <div className="profile-avatar">
+        <section className="mb-6 flex flex-wrap items-center gap-6 rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-100 to-violet-100 p-6 md:flex-nowrap">
+          <div className="grid h-[82px] w-[82px] shrink-0 place-items-center overflow-hidden rounded-full bg-blue-600 text-[32px] font-bold text-white">
             {photoPreview ? (
               <img src={photoPreview} alt="Profile" />
             ) : (
@@ -328,40 +327,40 @@ function Profile() {
             )}
           </div>
 
-          <div className="profile-hero-info">
-            <h2>{profile.fullName || "Your Name"}</h2>
-            <p>{profile.targetRole || "Add your target job role"}</p>
-            <span>✉ {profile.email}</span>
+          <div className="min-w-[180px]">
+            <h2 className="mb-2 text-[21px] font-bold text-slate-800">{profile.fullName || "Your Name"}</h2>
+            <p className="my-1 text-[13px] text-slate-500">{profile.targetRole || "Add your target job role"}</p>
+            <span className="my-1 text-[13px] text-slate-500">✉ {profile.email}</span>
           </div>
 
-          <div className="profile-progress">
-            <div className="progress-heading">
-              <span>Profile Completion</span>
-              <strong>{completion}%</strong>
+          <div className="mt-2 w-full max-w-none md:ml-auto md:mt-0 md:max-w-[330px] md:flex-1">
+            <div className="mb-2.5 flex justify-between text-[13px]">
+              <span className="text-slate-700">Profile Completion</span>
+              <strong className="text-blue-600">{completion}%</strong>
             </div>
-            <div className="profile-progress-track">
+            <div className="h-2 overflow-hidden rounded-full bg-blue-100">
               <div
-                className="profile-progress-fill"
+                className="h-full rounded-full bg-blue-600 transition-all"
                 style={{ width: `${completion}%` }}
               />
             </div>
-            <small>Complete your profile to improve your career readiness.</small>
+            <small className="mt-2 block text-[11px] leading-relaxed text-slate-500">Complete your profile to improve your career readiness.</small>
           </div>
         </section>
 
         <form onSubmit={handleSave}>
           {/* PERSONAL INFORMATION */}
-          <section className="profile-content-card">
-            <div className="profile-card-heading">
+          <section className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 md:p-[27px]">
+            <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2>Personal Information</h2>
-                <p>Your basic contact information</p>
+                <h2 className="mb-1.5 text-lg font-bold text-slate-800">Personal Information</h2>
+                <p className="m-0 text-[13px] text-slate-400">Your basic contact information</p>
               </div>
-              <span>01</span>
+              <span className="rounded-lg bg-blue-50 px-3 py-2 text-[13px] font-bold text-blue-600">01</span>
             </div>
 
-            <div className="profile-photo-upload">
-              <div className="small-avatar">
+            <div className="mb-6 flex items-center gap-4 border-b border-slate-100 pb-5">
+              <div className="grid h-[62px] w-[62px] shrink-0 place-items-center overflow-hidden rounded-full bg-blue-600 text-2xl font-bold text-white">
                 {photoPreview ? (
                   <img src={photoPreview} alt="Profile preview" />
                 ) : (
@@ -370,9 +369,9 @@ function Profile() {
               </div>
 
               <div>
-                <label htmlFor="profilePhoto">Profile Photo</label>
-                <p>JPG, PNG or WebP. Maximum 2 MB.</p>
-                <input
+                <label htmlFor="profilePhoto" className="text-[13px] font-bold text-slate-700">Profile Photo</label>
+                <p className="my-1.5 text-xs text-slate-500">JPG, PNG or WebP. Maximum 2 MB.</p>
+                <input className="mt-1 max-w-[230px] text-xs file:mr-3 file:rounded-md file:border-0 file:bg-blue-50 file:px-3 file:py-2 file:font-semibold file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-60"
                   id="profilePhoto"
                   type="file"
                   accept="image/jpeg,image/png,image/webp"
@@ -382,10 +381,10 @@ function Profile() {
               </div>
             </div>
 
-            <div className="profile-form-grid">
-              <div className="profile-field">
-                <label>Full Name</label>
-                <input
+            <div className="grid grid-cols-1 gap-[22px] md:grid-cols-2">
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Full Name</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="fullName"
                   value={profile.fullName}
                   onChange={handleChange}
@@ -394,14 +393,14 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>Email Address</label>
-                <input value={profile.email} type="email" disabled />
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Email Address</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500" value={profile.email} type="email" disabled />
               </div>
 
-              <div className="profile-field">
-                <label>Phone Number</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Phone Number</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="phone"
                   value={profile.phone}
                   onChange={handleChange}
@@ -410,9 +409,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>Location</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Location</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="location"
                   value={profile.location}
                   onChange={handleChange}
@@ -424,19 +423,19 @@ function Profile() {
           </section>
 
           {/* EDUCATION */}
-          <section className="profile-content-card">
-            <div className="profile-card-heading">
+          <section className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 md:p-[27px]">
+            <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2>Education Details</h2>
-                <p>Your academic background</p>
+                <h2 className="mb-1.5 text-lg font-bold text-slate-800">Education Details</h2>
+                <p className="m-0 text-[13px] text-slate-400">Your academic background</p>
               </div>
-              <span>02</span>
+              <span className="rounded-lg bg-blue-50 px-3 py-2 text-[13px] font-bold text-blue-600">02</span>
             </div>
 
-            <div className="profile-form-grid">
-              <div className="profile-field">
-                <label>Qualification</label>
-                <input
+            <div className="grid grid-cols-1 gap-[22px] md:grid-cols-2">
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Qualification</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="education"
                   value={profile.education}
                   onChange={handleChange}
@@ -445,9 +444,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>College / University</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">College / University</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   value={profile.educationDetails.institution}
                   onChange={(e) =>
                     handleNestedChange(
@@ -461,9 +460,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>Branch / Specialization</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Branch / Specialization</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   value={profile.educationDetails.specialization}
                   onChange={(e) =>
                     handleNestedChange(
@@ -477,9 +476,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>Graduation Year</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Graduation Year</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   value={profile.educationDetails.graduationYear}
                   onChange={(e) =>
                     handleNestedChange(
@@ -493,9 +492,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>CGPA / Percentage</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">CGPA / Percentage</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   value={profile.educationDetails.grade}
                   onChange={(e) =>
                     handleNestedChange(
@@ -512,19 +511,19 @@ function Profile() {
           </section>
 
           {/* SKILLS */}
-          <section className="profile-content-card">
-            <div className="profile-card-heading">
+          <section className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 md:p-[27px]">
+            <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2>Skills & Expertise</h2>
-                <p>Your technical and professional skills</p>
+                <h2 className="mb-1.5 text-lg font-bold text-slate-800">Skills & Expertise</h2>
+                <p className="m-0 text-[13px] text-slate-400">Your technical and professional skills</p>
               </div>
-              <span>03</span>
+              <span className="rounded-lg bg-blue-50 px-3 py-2 text-[13px] font-bold text-blue-600">03</span>
             </div>
 
-            <div className="profile-form-grid">
-              <div className="profile-field">
-                <label>Target Job Role</label>
-                <input
+            <div className="grid grid-cols-1 gap-[22px] md:grid-cols-2">
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Target Job Role</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="targetRole"
                   value={profile.targetRole}
                   onChange={handleChange}
@@ -533,9 +532,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>Technical Skills</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Technical Skills</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="skills"
                   value={profile.skills}
                   onChange={handleChange}
@@ -547,19 +546,19 @@ function Profile() {
           </section>
 
           {/* CAREER PREFERENCES */}
-          <section className="profile-content-card">
-            <div className="profile-card-heading">
+          <section className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 md:p-[27px]">
+            <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2>Career Preferences</h2>
-                <p>Tell us what kind of opportunities you prefer</p>
+                <h2 className="mb-1.5 text-lg font-bold text-slate-800">Career Preferences</h2>
+                <p className="m-0 text-[13px] text-slate-400">Tell us what kind of opportunities you prefer</p>
               </div>
-              <span>04</span>
+              <span className="rounded-lg bg-blue-50 px-3 py-2 text-[13px] font-bold text-blue-600">04</span>
             </div>
 
-            <div className="profile-form-grid">
-              <div className="profile-field">
-                <label>Preferred Industry</label>
-                <input
+            <div className="grid grid-cols-1 gap-[22px] md:grid-cols-2">
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Preferred Industry</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   value={profile.careerPreferences.industry}
                   onChange={(e) =>
                     handleNestedChange(
@@ -573,9 +572,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>Preferred Job Location</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Preferred Job Location</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   value={profile.careerPreferences.preferredLocation}
                   onChange={(e) =>
                     handleNestedChange(
@@ -589,9 +588,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>Preferred Work Mode</label>
-                <select
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">Preferred Work Mode</label>
+                <select className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   value={profile.careerPreferences.workMode}
                   onChange={(e) =>
                     handleNestedChange(
@@ -612,23 +611,23 @@ function Profile() {
           </section>
 
           {/* EXPERIENCE */}
-          <section className="profile-content-card">
-            <div className="profile-card-heading">
+          <section className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 md:p-[27px]">
+            <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2>Experience & Internships</h2>
-                <p>Add your work experience and internships</p>
+                <h2 className="mb-1.5 text-lg font-bold text-slate-800">Experience & Internships</h2>
+                <p className="m-0 text-[13px] text-slate-400">Add your work experience and internships</p>
               </div>
-              <span>05</span>
+              <span className="rounded-lg bg-blue-50 px-3 py-2 text-[13px] font-bold text-blue-600">05</span>
             </div>
 
             {profile.experience.map((item, index) => (
-              <div className="repeat-entry" key={index}>
-                <div className="repeat-entry-heading">
-                  <strong>Experience {index + 1}</strong>
+              <div className="mb-[18px] rounded-xl border border-slate-200 bg-slate-50 p-5" key={index}>
+                <div className="mb-5 flex items-center justify-between text-sm text-slate-700">
+                  <strong className="font-semibold">Experience {index + 1}</strong>
                   {isEditing && (
                     <button
                       type="button"
-                      className="remove-entry-btn"
+                      className="cursor-pointer rounded-lg border-0 bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-100"
                       onClick={() => removeEntry("experience", index)}
                     >
                       Remove
@@ -636,10 +635,10 @@ function Profile() {
                   )}
                 </div>
 
-                <div className="profile-form-grid">
-                  <div className="profile-field">
-                    <label>Job Title</label>
-                    <input
+                <div className="grid grid-cols-1 gap-[22px] md:grid-cols-2">
+                  <div className="flex min-w-0 flex-col gap-[9px]">
+                    <label className="text-[13px] font-semibold text-slate-600">Job Title</label>
+                    <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                       value={item.jobTitle}
                       disabled={!isEditing}
                       onChange={(e) =>
@@ -654,9 +653,9 @@ function Profile() {
                     />
                   </div>
 
-                  <div className="profile-field">
-                    <label>Company</label>
-                    <input
+                  <div className="flex min-w-0 flex-col gap-[9px]">
+                    <label className="text-[13px] font-semibold text-slate-600">Company</label>
+                    <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                       value={item.company}
                       disabled={!isEditing}
                       onChange={(e) =>
@@ -671,9 +670,9 @@ function Profile() {
                     />
                   </div>
 
-                  <div className="profile-field full-width">
-                    <label>Duration</label>
-                    <input
+                  <div className="flex min-w-0 flex-col gap-[9px] md:col-span-2">
+                    <label className="text-[13px] font-semibold text-slate-600">Duration</label>
+                    <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                       value={item.duration}
                       disabled={!isEditing}
                       onChange={(e) =>
@@ -688,9 +687,9 @@ function Profile() {
                     />
                   </div>
 
-                  <div className="profile-field full-width">
-                    <label>Description</label>
-                    <textarea
+                  <div className="flex min-w-0 flex-col gap-[9px] md:col-span-2">
+                    <label className="text-[13px] font-semibold text-slate-600">Description</label>
+                    <textarea className="w-full min-w-0 resize-y rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                       rows={3}
                       value={item.description}
                       disabled={!isEditing}
@@ -712,7 +711,7 @@ function Profile() {
             {isEditing && (
               <button
                 type="button"
-                className="add-entry-btn"
+                className="cursor-pointer rounded-lg border border-dashed border-blue-300 bg-blue-50 px-4 py-3 text-[13px] font-semibold text-blue-600 transition hover:bg-blue-100"
                 onClick={() => addEntry("experience")}
               >
                 + Add Experience
@@ -721,23 +720,23 @@ function Profile() {
           </section>
 
           {/* CERTIFICATIONS */}
-          <section className="profile-content-card">
-            <div className="profile-card-heading">
+          <section className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 md:p-[27px]">
+            <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2>Certifications</h2>
-                <p>Add your completed courses and certificates</p>
+                <h2 className="mb-1.5 text-lg font-bold text-slate-800">Certifications</h2>
+                <p className="m-0 text-[13px] text-slate-400">Add your completed courses and certificates</p>
               </div>
-              <span>06</span>
+              <span className="rounded-lg bg-blue-50 px-3 py-2 text-[13px] font-bold text-blue-600">06</span>
             </div>
 
             {profile.certifications.map((item, index) => (
-              <div className="repeat-entry" key={index}>
-                <div className="repeat-entry-heading">
-                  <strong>Certification {index + 1}</strong>
+              <div className="mb-[18px] rounded-xl border border-slate-200 bg-slate-50 p-5" key={index}>
+                <div className="mb-5 flex items-center justify-between text-sm text-slate-700">
+                  <strong className="font-semibold">Certification {index + 1}</strong>
                   {isEditing && (
                     <button
                       type="button"
-                      className="remove-entry-btn"
+                      className="cursor-pointer rounded-lg border-0 bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-100"
                       onClick={() =>
                         removeEntry("certifications", index)
                       }
@@ -747,10 +746,10 @@ function Profile() {
                   )}
                 </div>
 
-                <div className="profile-form-grid">
-                  <div className="profile-field">
-                    <label>Certificate Name</label>
-                    <input
+                <div className="grid grid-cols-1 gap-[22px] md:grid-cols-2">
+                  <div className="flex min-w-0 flex-col gap-[9px]">
+                    <label className="text-[13px] font-semibold text-slate-600">Certificate Name</label>
+                    <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                       value={item.name}
                       disabled={!isEditing}
                       onChange={(e) =>
@@ -765,9 +764,9 @@ function Profile() {
                     />
                   </div>
 
-                  <div className="profile-field">
-                    <label>Issuing Organization</label>
-                    <input
+                  <div className="flex min-w-0 flex-col gap-[9px]">
+                    <label className="text-[13px] font-semibold text-slate-600">Issuing Organization</label>
+                    <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                       value={item.issuingOrganization}
                       disabled={!isEditing}
                       onChange={(e) =>
@@ -782,9 +781,9 @@ function Profile() {
                     />
                   </div>
 
-                  <div className="profile-field">
-                    <label>Issue Year</label>
-                    <input
+                  <div className="flex min-w-0 flex-col gap-[9px]">
+                    <label className="text-[13px] font-semibold text-slate-600">Issue Year</label>
+                    <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                       value={item.issueYear}
                       disabled={!isEditing}
                       onChange={(e) =>
@@ -805,7 +804,7 @@ function Profile() {
             {isEditing && (
               <button
                 type="button"
-                className="add-entry-btn"
+                className="cursor-pointer rounded-lg border border-dashed border-blue-300 bg-blue-50 px-4 py-3 text-[13px] font-semibold text-blue-600 transition hover:bg-blue-100"
                 onClick={() => addEntry("certifications")}
               >
                 + Add Certification
@@ -814,19 +813,19 @@ function Profile() {
           </section>
 
           {/* SUMMARY AND SOCIAL LINKS */}
-          <section className="profile-content-card">
-            <div className="profile-card-heading">
+          <section className="mb-5 rounded-2xl border border-slate-200 bg-white p-5 md:p-[27px]">
+            <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2>Professional Summary & Links</h2>
-                <p>Introduce yourself and share your professional work</p>
+                <h2 className="mb-1.5 text-lg font-bold text-slate-800">Professional Summary & Links</h2>
+                <p className="m-0 text-[13px] text-slate-400">Introduce yourself and share your professional work</p>
               </div>
-              <span>07</span>
+              <span className="rounded-lg bg-blue-50 px-3 py-2 text-[13px] font-bold text-blue-600">07</span>
             </div>
 
-            <div className="profile-form-grid">
-              <div className="profile-field full-width">
-                <label>About Me</label>
-                <textarea
+            <div className="grid grid-cols-1 gap-[22px] md:grid-cols-2">
+              <div className="flex min-w-0 flex-col gap-[9px] md:col-span-2">
+                <label className="text-[13px] font-semibold text-slate-600">About Me</label>
+                <textarea className="w-full min-w-0 resize-y rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="about"
                   value={profile.about}
                   onChange={handleChange}
@@ -836,9 +835,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>LinkedIn Profile</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">LinkedIn Profile</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="linkedin"
                   value={profile.linkedin}
                   onChange={handleChange}
@@ -847,9 +846,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field">
-                <label>GitHub Profile</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px]">
+                <label className="text-[13px] font-semibold text-slate-600">GitHub Profile</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="github"
                   value={profile.github}
                   onChange={handleChange}
@@ -858,9 +857,9 @@ function Profile() {
                 />
               </div>
 
-              <div className="profile-field full-width">
-                <label>Portfolio Website</label>
-                <input
+              <div className="flex min-w-0 flex-col gap-[9px] md:col-span-2">
+                <label className="text-[13px] font-semibold text-slate-600">Portfolio Website</label>
+                <input className="w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3.5 py-3 text-[13px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
                   name="portfolio"
                   value={profile.portfolio}
                   onChange={handleChange}
@@ -872,10 +871,10 @@ function Profile() {
           </section>
 
           {isEditing && (
-            <div className="profile-form-actions">
+            <div className="my-[22px] flex justify-end gap-3">
               <button
                 type="button"
-                className="profile-cancel-btn"
+                className="cursor-pointer rounded-lg border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-600 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
                 onClick={handleCancel}
                 disabled={saving}
               >
@@ -884,7 +883,7 @@ function Profile() {
 
               <button
                 type="submit"
-                className="profile-save-btn"
+                className="cursor-pointer rounded-lg border-0 bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
                 disabled={saving}
               >
                 {saving ? "Saving..." : "Save Changes"}
@@ -893,7 +892,7 @@ function Profile() {
           )}
         </form>
 
-        <footer className="profile-footer">
+        <footer className="p-6 text-center text-xs text-slate-400">
           CareerOS © 2026 · Build your future with confidence.
         </footer>
       </main>

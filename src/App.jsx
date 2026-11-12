@@ -14,6 +14,7 @@ import ResumeBuilder from "./pages/ResumeBuilder";
 import JobTracker from "./pages/JobTracker";
 
 function App() {
+  
   return (
     <BrowserRouter>
       <Routes>
