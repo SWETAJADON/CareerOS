@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "../App.css";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -74,9 +73,7 @@ function Register() {
       });
     } catch (err) {
       if (err.response) {
-        setError(
-          err.response.data.message || "Registration failed."
-        );
+        setError(err.response.data.message || "Registration failed.");
       } else {
         setError(
           "Cannot connect to the server. Please check your backend."
@@ -87,14 +84,26 @@ function Register() {
     }
   }
 
-  return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <h1>CareerOS</h1>
-        <p className="subtitle">Create your account</p>
+  const inputClasses =
+    "w-full rounded-lg border border-slate-300 bg-white px-3 py-3 text-[15px] text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-200";
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="fullName">Full name</label>
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#0b1220] to-[#172554] px-4 py-8 font-sans">
+      <div className="w-full max-w-[440px] rounded-2xl bg-white p-6 shadow-[0_10px_35px_rgba(15,23,42,0.18)] sm:p-9">
+        <h1 className="text-center text-[32px] font-bold tracking-tight text-[#17365d]">
+          CareerOS
+        </h1>
+        <p className="mb-7 mt-2 text-center text-slate-500">
+          Create your account
+        </p>
+
+        <form onSubmit={handleSubmit} className="flex flex-col">
+          <label
+            htmlFor="fullName"
+            className="mb-1.5 mt-3 text-sm font-semibold text-slate-700"
+          >
+            Full name
+          </label>
           <input
             id="fullName"
             name="fullName"
@@ -103,9 +112,15 @@ function Register() {
             placeholder="Enter your full name"
             autoComplete="name"
             required
+            className={inputClasses}
           />
 
-          <label htmlFor="email">Email address</label>
+          <label
+            htmlFor="email"
+            className="mb-1.5 mt-3 text-sm font-semibold text-slate-700"
+          >
+            Email address
+          </label>
           <input
             id="email"
             name="email"
@@ -115,9 +130,15 @@ function Register() {
             placeholder="you@example.com"
             autoComplete="email"
             required
+            className={inputClasses}
           />
 
-          <label htmlFor="password">Password</label>
+          <label
+            htmlFor="password"
+            className="mb-1.5 mt-3 text-sm font-semibold text-slate-700"
+          >
+            Password
+          </label>
           <input
             id="password"
             name="password"
@@ -127,9 +148,15 @@ function Register() {
             placeholder="At least 8 characters"
             autoComplete="new-password"
             required
+            className={inputClasses}
           />
 
-          <label htmlFor="confirmPassword">Confirm password</label>
+          <label
+            htmlFor="confirmPassword"
+            className="mb-1.5 mt-3 text-sm font-semibold text-slate-700"
+          >
+            Confirm password
+          </label>
           <input
             id="confirmPassword"
             name="confirmPassword"
@@ -139,27 +166,44 @@ function Register() {
             placeholder="Enter password again"
             autoComplete="new-password"
             required
+            className={inputClasses}
           />
 
           {error && (
-            <p className="form-message" role="alert">
+            <p
+              className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-red-700"
+              role="alert"
+            >
               {error}
             </p>
           )}
 
           {success && (
-            <p className="form-message" role="status">
+            <p
+              className="mt-3 rounded-lg border border-green-200 bg-green-50 px-3 py-2.5 text-sm text-green-700"
+              role="status"
+            >
               {success}
             </p>
           )}
 
-          <button type="submit" disabled={loading}>
+          <button
+            type="submit"
+            disabled={loading}
+            className="mt-6 rounded-lg bg-blue-600 px-4 py-3 text-[15px] font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+          >
             {loading ? "Creating account..." : "Create account"}
           </button>
         </form>
 
-        <p className="auth-footer">
-          Already have an account? <Link to="/login">Login</Link>
+        <p className="mt-6 text-center text-sm text-slate-500">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="font-semibold text-blue-600 no-underline hover:text-blue-800 hover:underline"
+          >
+            Login
+          </Link>
         </p>
       </div>
     </div>
